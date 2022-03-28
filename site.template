@@ -1,0 +1,45 @@
+    # Virtual Host configuration for www.${SITE}
+    #
+    server {
+        listen 80;
+        server_name www.${SITE};
+
+        access_log /var/log/nginx/www.${SITE}-access.log;
+        error_log /var/log/nginx/www.${SITE}-error.log;
+
+        root /var/www/www.${SITE}/current;
+        index  index.html index.htm;
+
+        # Let's Encrypt Challenge
+        location ~ /.well-known {
+          allow all;
+          root /var/www/letsencrypt;
+        }
+
+        location / {
+          rewrite ^/(.*)\$ https://www.${SITE}/\$1 permanent;
+          rewrite ^/\$ https://www.${SITE}/ permanent;
+        }
+    }
+
+    server {
+        listen 80;
+        server_name company.com;
+
+        access_log /var/log/nginx/www.${SITE}-access.log;
+        error_log /var/log/nginx/www.${SITE}-error.log;
+
+        root /var/www/www.${SITE}/current;
+        index  index.html index.htm;
+
+        # Let's Encrypt Challenge
+        location ~ /.well-known {
+          allow all;
+          root /var/www/letsencrypt;
+        }
+
+        location / {
+          rewrite ^/(.*)\$ https://${SITE}/\$1 permanent;
+          rewrite ^/\$ https://${SITE}/ permanent;
+        }
+    }
