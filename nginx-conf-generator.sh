@@ -1,11 +1,6 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-  echo "ERROR: Argument is empty"
-  exit 1
-fi
-
-OUTPUT_DIR=etc/nginx/sites-enabled/
+OUTPUT_DIR=/etc/nginx/sites-available/
 
 generate_site_config() {
   mkdir $OUTPUT_DIR
