@@ -13,3 +13,5 @@ fi
 sh cert-generator.sh $1
 sh nginx-conf-generator.sh $1 $2
 sudo ln -s /etc/nginx/sites-available/$1 /etc/nginx/sites-enabled/$1
+
+echo "Config is successfully generated"
