@@ -1,0 +1,30 @@
+  # Virtual Host configuration for ${SITE}
+    #
+    server {
+      server_name ${SITE};
+      listen 443 ssl;
+
+      location / {
+        proxy_pass http://localhost:${PORT};
+      }
+
+      access_log /var/log/nginx/${SITE}-access.log;
+      error_log /var/log/nginx/${SITE}-error.log;
+
+      ssl_certificate /etc/letsencrypt/live/${SITE}/fullchain.pem;
+      ssl_certificate_key /etc/letsencrypt/live/${SITE}/privkey.pem;
+      include /etc/letsencrypt/options-ssl-nginx.conf;
+      ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    }
+
+    server {
+      listen 80;
+      server_name ${SITE};
+
+      if (\$host = ${SITE}) {
+        return 301 https://\$host\$request_uri;
+      }
+
+
+      return 404;
+    }
