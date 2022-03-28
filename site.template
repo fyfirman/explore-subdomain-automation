@@ -1,4 +1,4 @@
-    # Virtual Host configuration for www.${SITE}
+  # Virtual Host configuration for www.${SITE}
     #
     server {
         listen 80;
